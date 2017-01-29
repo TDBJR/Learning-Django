@@ -1,0 +1,78 @@
+<!doctype html>
+<html> 
+<head>
+	<!--  Loads the path to your static files -->
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title style="color:red;">{% block title %}Darshusic{% endblock %}</title>
+    <!-- The link below needs to be added in order to use bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Satisfy" rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+	<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}"/>
+<!--  The order in which these are placed are important. If they are in the wrong order they will not work properly -->
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+					
+					<!--  header -->
+					<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNavBar" aria-expanded="false"><!-- This is where you enter the menu items -->
+									<span class="icon-bar"></span> <!-- This is the navbar collapse button that works when the page resizes -->
+									<span class="icon-bar"></span><!--   and is a part of bootstrap -->
+									<span class="icon-bar"></span>
+							</button>
+							<!-- Below is the home page link -->
+							<a class="navbar-brand" href="{% url 'music:home'  %}" style="color:red; ">Darshusic</a>
+					</div>                                  <!--  This url is referencing the music url page -->
+					
+					<!-- Menu Items -->
+					        																									<!--  This is a part of bootstrap -->
+					<div class="collapse navbar-collapse" id='topNavBar'> <!--  This needs is the id that the collapse navbar will use -->
+							<ul class="nav navbar-nav">                                            
+									<li class="">
+											<a href="{% url 'music:index'  %}">
+											<span class="glyphicon glyphicon-cd" aria-hidden="true" id=test></span>&nbsp; Albums
+											</a>
+									</li>
+									<li class="">
+											<a href="">
+											<span class="glyphicon glyphicon-music" aria-hidden="true" id=test></span>&nbsp; Music
+											</a>
+									</li>				
+							</ul>
+							                  <!-- navbar-left makes it so that the buttons are on the left side of the page -->
+							<form class="navbar-form navbar-left" role="search" method="get" action="#">
+									<div class="form-group"> <!-- This is for formating and style -->
+											<input type="text" class="form-control" name="q" value=""> <!-- q is just a variable that the search will be saved to -->
+									</div>
+									<button type="submit" class="btn btn-default" >Search</button>
+							</form>
+							<ul class="nav navbar-nav navbar-right">
+									<li class="">
+											<a href="{% url 'music:album-add' %}">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true" id=test></span>&nbsp; Add Albums
+											</a>
+									</li>
+									<li class="">
+											<a href="{% url 'music:index'  %}">
+											<span class="glyphicon glyphicon-off" aria-hidden="true" id=test></span>&nbsp; Logout
+											</a>
+									</li>		
+									<li class="">
+											<a href="{% url 'music:register'  %}">
+											<span class="glyphicon glyphicon-list-alt" aria-hidden="true" id=test></span>&nbsp; Register
+											</a>
+									</li>		
+							</ul>
+					</div>
+					
+			</div>
+	</nav>
+{% block body %} <!-- This is the variable that allows you to fill in data on each page -->
+{% endblock %}
+
+</body>
+</html>

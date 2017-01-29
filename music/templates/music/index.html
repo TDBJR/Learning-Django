@@ -1,0 +1,25 @@
+{% extends 'music/base.html' %} <!--  This is importing the base.html as a template -->
+{% block title %}Darshusic{% endblock %}
+{% block body %}
+
+
+	
+		{% for album in all_albums %}  <!-- object_list is the variable that the class generic.ListViews used to send it's data by default but i changed it-->
+				<!-- THIS DIV CONTAINER HAS THE INFO FOR REATIVE INLINE GRID FORMATIONS -->
+				<div style ="display: inline-block; margin: 32px;" ><a href="{% url 'music:detail' album.id  %}">
+<!-- You need to add.url here since it is a uploaded file to the media folder otherwise if you set the logo from a actual online image url address you can exclude the .url -->
+					 <img src="{{ album.album_logo.url }}" style="width: 400px;"/><h1>{{album.album_title }}</h1></a> 
+				<form action="{% url 'music:album-delete' album.id %}" method='post' style="display:inline;" title="Delete">
+				{% csrf_token %} <!-- I think this delete button is sending the album.id to the AlbumDelete class -->
+						<input type="hidden" name="album_id" value="{{ album.id }}"/>
+								<button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+		</form> <form action="{% url 'music:album-update' album.id %}" method='post' style="display:inline;"title="Edit" >
+				{% csrf_token %} 
+						<input type="hidden" name="album_id" value="{{ album.id }}"/> <!--  I think this button is sending the id to the AlbumUpdate class through the url <pk> -->
+								<button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit" ></span></button>
+		</form></div> 
+		
+		{% endfor %}
+	
+{% endblock %}
+

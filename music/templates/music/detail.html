@@ -1,0 +1,29 @@
+{% extends 'music/base.html' %} <!--  This is importing the base.html as a template -->
+{% block title %}Album Details{% endblock %}
+{% block body %}
+<!-- All of the Album data was sent over from the generic.DetailView class -->
+	<img src={{ album.album_logo.url }} style="width: 250px;">
+	<h1>{{album.album_title}}</h1>
+	<h2>{{album.artist}}</h2>
+	
+	<!-- THIS IS A TEST############################################################################## -->
+	<form action="{% url 'music:song-add' album.id %}" method='post' style="display:inline;"title="Add a song" >
+				{% csrf_token %} 
+						<input type="hidden" name="album_id" value="{{ album.id }}"/> <!--  I think this button is sending the id to the AlbumUpdate class through the url <pk> -->
+								<button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" ></span></button><br><br><br>
+	
+	
+<!-- ################################################################################################################## -->
+	
+	{% for song in album.song_set.all %}
+		<input type='radio' id="song{{ forloop.counter }}" name="song" value="{{ song.id }}"/>
+		<label for="song{{ forloop.counter }}">
+			{{ song.song_title }}
+			{% if song.is_favorite %}
+				<div style ="display: inline-block; margin: 35px;"><img src="http://i.imgur.com/b9b13Rd.png" /></div>
+		    {% endif %}
+		</label><br>
+	{% endfor %}	
+		
+	
+{% endblock %}
